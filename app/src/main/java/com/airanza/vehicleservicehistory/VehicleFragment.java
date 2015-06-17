@@ -12,6 +12,8 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
+import java.util.Arrays;
+
 public class VehicleFragment extends Fragment {
     public static int VEHICLE_ACTIVITY_REQUEST = 101;
     public static String VEHICLE_INTENT_DATA = "vehicle_data";
@@ -42,7 +44,19 @@ public class VehicleFragment extends Fragment {
     }
 
     private void updateUIFromVehicle() {
-        // TODO: UI element updating logic here, from vehicle. Opposite of updateVehicleFromUI();
+        View v = getView();
+
+        ((Spinner) v.findViewById(R.id.vehicle_type_edittext)).setSelection(Utils.findIndexOf(vehicle.getType(), getResources(), R.array.vehicle_types));
+
+        ((EditText) v.findViewById(R.id.vehicle_vin_edittext)).setText(vehicle.getVin());
+        ((EditText) v.findViewById(R.id.vehicle_plate_edittext)).setText(vehicle.getPlate());
+
+        ((EditText) v.findViewById(R.id.vehicle_nickname_edittext)).setText(vehicle.getNickname());
+        ((EditText) v.findViewById(R.id.vehicle_year_edittext)).setText(vehicle.getYear() + "");
+        ((EditText) v.findViewById(R.id.vehicle_make_edittext)).setText(vehicle.getMake());
+        ((EditText) v.findViewById(R.id.vehicle_model_edittext)).setText(vehicle.getModel());
+        ((EditText) v.findViewById(R.id.vehicle_color_edittext)).setText(vehicle.getColor());
+        ((EditText) v.findViewById(R.id.vehicle_notes_edittext)).setText(vehicle.getNotes());
     }
 
     private void updateVehicleFromUI() {
@@ -58,20 +72,5 @@ public class VehicleFragment extends Fragment {
         vehicle.setModel(((EditText) v.findViewById(R.id.vehicle_model_edittext)).getText().toString());
         vehicle.setColor(((EditText) v.findViewById(R.id.vehicle_color_edittext)).getText().toString());
         vehicle.setNotes(((EditText) v.findViewById(R.id.vehicle_notes_edittext)).getText().toString());
-    }
-
-    private void onSubmit(View v) {
-        // gather up variables, if editing existing fuelEvent, update, else create new.
-        updateVehicleFromUI();
-
-        // send back the results to the caller, whether they want it or not!
-        Intent result = new Intent("com.airanza.vehicleservicehistory.VehicleFragment.VEHICLE_ACTIVITY_REQUEST", Uri.parse("content://result_uri"));
-        result.putExtra(VEHICLE_INTENT_DATA, vehicle);
-
-        if(getActivity().getParent() == null) {
-            getActivity().setResult(Activity.RESULT_OK, result);
-        } else {
-            getActivity().getParent().setResult(Activity.RESULT_OK, result);
-        }
     }
 }

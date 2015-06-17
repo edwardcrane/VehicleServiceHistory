@@ -66,13 +66,13 @@ public class MainActivity extends ActionBarActivity {
         if(requestCode == FuelEventFragment.FUEL_EVENT_ACTIVITY_REQUEST) {
             if(resultCode == RESULT_OK) {
                 FuelEvent fuelEvent = (FuelEvent)data.getSerializableExtra(FuelEventFragment.FUEL_EVENT_INTENT_DATA);
-                System.out.println(fuelEvent.getID() + " " + fuelEvent.getVolume() + " " + fuelEvent.getPrice_per_unit() + " " + fuelEvent.getVolume() * fuelEvent.getPrice_per_unit());
+                System.out.println(fuelEvent.getID() + " " + fuelEvent.getVolume() + " " + fuelEvent.getVolume_unit() + " " + fuelEvent.getPrice_per_unit() + " " + fuelEvent.getVolume() * fuelEvent.getPrice_per_unit());
             }
         }
         if(requestCode == VehicleFragment.VEHICLE_ACTIVITY_REQUEST) {
             if(resultCode == RESULT_OK) {
                 Vehicle vehicle = (Vehicle)data.getSerializableExtra(VehicleFragment.VEHICLE_INTENT_DATA);
-                System.out.println(vehicle.getID() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " + vehicle.getVin());
+                System.out.println(vehicle.getID() + " " + vehicle.getType() + " " + vehicle.getYear() + " " + vehicle.getMake() + " " + vehicle.getModel() + " " + vehicle.getVin());
             }
         }
     }

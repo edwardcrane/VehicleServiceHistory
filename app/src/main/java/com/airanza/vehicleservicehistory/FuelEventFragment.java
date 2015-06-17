@@ -13,9 +13,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.Spinner;
 
-/**
- * Created by ecrane on 6/12/2015.
- */
 public class FuelEventFragment extends Fragment {
     public static int FUEL_EVENT_ACTIVITY_REQUEST = 100;
     public static String FUEL_EVENT_INTENT_DATA = "fuel_event_data";
@@ -51,26 +48,21 @@ public class FuelEventFragment extends Fragment {
     }
 
     private void updateUIFromEvent() {
-        // TODO:  Convert all get to set:
         View v = getView();
 
         ((EditText)v.findViewById(R.id.fuel_event_timestamp)).setText(fuelEvent.getTimestamp() + "");
 
         ((EditText)v.findViewById(R.id.fuel_event_distance)).setText(fuelEvent.getDistance() + "");
-        // TODO:  Create Spinner for miles vs. Kilometers, then find index into string array for selection:
-        ((Spinner)v.findViewById(R.id.fuel_event_distance_unit)).setSelection(1);
+        ((Spinner)v.findViewById(R.id.fuel_event_distance_unit)).setSelection(Utils.findIndexOf(fuelEvent.getDistanceUnit(), getResources(), R.array.distance_units_array));
 
         ((EditText)v.findViewById(R.id.fuel_event_volume)).setText(fuelEvent.getVolume() + "");
-        // TODO: Figure out how to set the Spinner.  Must find selection in array, based on string, I guess.
-        ((Spinner)v.findViewById(R.id.fuel_event_volume_unit)).setSelection(1);
+        ((Spinner)v.findViewById(R.id.fuel_event_volume_unit)).setSelection(Utils.findIndexOf(fuelEvent.getVolume_unit(), getResources(), R.array.volume_units_array));
 
         ((EditText)v.findViewById(R.id.fuel_event_octane)).setText(fuelEvent.getOctane() + "");
-        // TODO:  look up index into array and then set selection.
-        ((Spinner)v.findViewById(R.id.fuel_event_octane_method)).setSelection(1);
+        ((Spinner)v.findViewById(R.id.fuel_event_octane_method)).setSelection(Utils.findIndexOf(fuelEvent.getOctane_method(), getResources(), R.array.octane_rating_methods));
 
         ((EditText)v.findViewById(R.id.fuel_event_price_per_unit)).setText(fuelEvent.getPrice_per_unit() + "");
-        // TODO:  Look up index into array and then set selection.
-        ((Spinner)v.findViewById(R.id.fuel_event_currency)).setSelection(1);
+        ((Spinner)v.findViewById(R.id.fuel_event_currency)).setSelection(Utils.findIndexOf(fuelEvent.getCurrency(), getResources(), R.array.currencies));
 
         ((EditText)v.findViewById(R.id.fuel_event_notes_edittext)).setText(fuelEvent.getNotes());
 
@@ -101,22 +93,5 @@ public class FuelEventFragment extends Fragment {
 
         fuelEvent.setGps_latitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_latitude_edittext)).getText().toString()));
         fuelEvent.setGps_longitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_longitude_edittext)).getText().toString()));
-    }
-
-    private void onSubmit(View v) {
-        updateFuelEventFromUI();
-
-        // send back the results to the caller, whether they want it or not!
-        Intent result = new Intent("com.airanza.vehicleservicehistory.FuelEvenFragment.FUEL_EVENT_ACTIVITY_REQUEST", Uri.parse("content://result_uri"));
-        result.putExtra(FUEL_EVENT_INTENT_DATA, fuelEvent);
-
-        if(getActivity().getParent() == null) {
-            getActivity().setResult(Activity.RESULT_OK, result);
-        } else {
-            getActivity().getParent().setResult(Activity.RESULT_OK, result);
-        }
-
-        // TODO:  LET THE CALLING ACTIVITY DECIDE WHEN TO finish():
-        //getActivity().finish();
     }
 }
