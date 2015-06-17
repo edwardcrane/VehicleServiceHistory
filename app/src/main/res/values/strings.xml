@@ -1,0 +1,65 @@
+<resources>
+    <string name="app_name">VehicleServiceHistory</string>
+
+    <string name="action_settings">Settings</string>
+
+    <!-- Main Activity -->
+    <string name="add_vehicle_hint">Add Vehicle</string>
+    <string name="add_fuel_hint">Add Fuel</string>
+    <string name="add_service_hint">Add Service</string>
+
+    <!-- Vehicle fragment -->
+    <string name="vehicle_type_hint">Type (Car, Motorcycle, Truck&#8230;)</string>
+    <string-array name="vehicle_types">
+        <item>Car</item>
+        <item>Motorcycle</item>
+        <item>Truck</item>
+    </string-array>
+    <string name="vehicle_activity_submit">Submit</string>
+    <string name="vehicle_vin_hint">VIN #</string>
+    <string name="vehicle_plate_hint">License Plate</string>
+    <string name="vehicle_nickname_hint">Nickname (i.e. \"Big Red\", &#8230;)</string>
+    <string name="vehicle_year_hint">Model Year</string>
+    <string name="vehicle_make_hint">Make</string>
+    <string name="vehicle_model_hint">Model</string>
+    <string name="vehicle_color_hint">Color</string>
+    <string name="vehicle_notes_hint">Notes</string>
+
+    <!-- fuel event fragment -->
+    <string name="fuel_vehicle_id_hint">Vehicle ID</string>
+    <string name="fuel_timestamp_hint">Date (mm/dd/yyyy)</string>
+    <string name="fuel_distance_hint">Odometer</string>
+    <string name="fuel_distance_unit_hint">Miles</string>
+    <string-array name="distance_units_array">
+        <item>Miles</item>
+        <item>Kilometers</item>
+    </string-array>
+    <string name="fuel_volume_hint">Gallons</string>
+    <string-array name="volume_units_array">
+        <item>Gallons</item>
+        <item>Liters</item>
+    </string-array>
+    <string name="fuel_volume_unit_hint">Units</string>
+    <string name="fuel_octane_hint">Octane</string>
+    <string name="fuel_octane_method_hint">Octane Rating Method</string>
+    <string-array name="octane_rating_methods">
+        <item>AKI / (R+M)/2</item>
+        <item>RON</item>
+        <item>MON</item>
+    </string-array>
+    <string name="fuel_price_per_unit_hint">Price/gallon</string>
+    <string name="fuel_currency_hint">Currency</string>
+    <string-array name="currencies">
+        <item>USD</item>
+        <item>EUR</item>
+        <item>CAD</item>
+        <item>GBP</item>
+    </string-array>
+    <string name="fuel_notes_hint">Notes</string>
+    <string name="fuel_gps_latitude_hint">GPS Latitude</string>
+    <string name="fuel_gps_longitude_hint">GPS Longitude</string>
+    <string name="title_activity_fuel_event">Add Fuel</string>
+
+    <string name="hello_world">Hello world!</string>
+    <string name="title_activity_vehicle">Vehicle</string>
+</resources>

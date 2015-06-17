@@ -1,0 +1,128 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <!--private long vehicle_id;-->
+    <EditText
+        android:id="@+id/fuel_event_vehicle_id"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:hint="@string/fuel_vehicle_id_hint" />
+
+    <!--private long timestamp;-->
+    <EditText
+        android:id="@+id/fuel_event_timestamp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_vehicle_id"
+        android:hint="@string/fuel_timestamp_hint"
+        android:inputType="date"/>
+
+    <!--private int distance;-->
+    <EditText
+        android:id="@+id/fuel_event_distance"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_timestamp"
+        android:inputType="number"
+        android:hint="@string/fuel_distance_hint" />
+
+    <!-- miles or kilometers -->
+    <Spinner
+        android:id="@+id/fuel_event_distance_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fuel_event_distance"
+        android:layout_toEndOf="@+id/fuel_event_distance"
+        android:layout_alignBaseline="@+id/fuel_event_distance"
+        android:prompt="@string/fuel_distance_unit_hint"
+        android:entries="@array/distance_units_array" />
+
+    <!--private float volume;-->
+    <EditText
+        android:id="@+id/fuel_event_volume"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_distance"
+        android:hint="@string/fuel_volume_hint"
+        android:inputType="numberDecimal" />
+    <!--private long volume_unit;-->
+    <Spinner
+        android:id="@+id/fuel_event_volume_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fuel_event_volume"
+        android:layout_toEndOf="@+id/fuel_event_volume"
+        android:layout_alignBaseline="@+id/fuel_event_volume"
+        android:prompt="@string/fuel_volume_unit_hint"
+        android:entries="@array/volume_units_array" />
+
+    <!--private int octane;-->
+    <EditText
+        android:id="@+id/fuel_event_octane"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_volume"
+        android:inputType="number"
+        android:hint="@string/fuel_octane_hint" />
+
+    <!--private long octane_method_id;-->
+    <Spinner
+        android:id="@+id/fuel_event_octane_method"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fuel_event_octane"
+        android:layout_toEndOf="@+id/fuel_event_octane"
+        android:layout_alignBaseline="@+id/fuel_event_octane"
+        android:prompt="@string/fuel_octane_method_hint"
+        android:entries="@array/octane_rating_methods" />
+
+    <!--private float price_per_unit;-->
+    <EditText
+        android:id="@+id/fuel_event_price_per_unit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_octane"
+        android:inputType="numberDecimal"
+        android:hint="@string/fuel_price_per_unit_hint" />
+
+    <!--private long currency_id;-->
+    <Spinner
+        android:id="@+id/fuel_event_currency"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fuel_event_price_per_unit"
+        android:layout_toEndOf="@+id/fuel_event_price_per_unit"
+        android:layout_alignBaseline="@+id/fuel_event_price_per_unit"
+        android:prompt="@string/fuel_currency_hint"
+        android:entries="@array/currencies" />
+
+    <!--private String notes;-->
+    <EditText
+        android:id="@+id/fuel_event_notes_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_price_per_unit"
+        android:hint="@string/fuel_notes_hint" />
+
+    <!--private double gps_latitude;-->
+    <EditText
+        android:id="@+id/fuel_event_gps_latitude_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/fuel_event_notes_edittext"
+        android:inputType="numberDecimal"
+        android:hint="@string/fuel_gps_latitude_hint" />
+
+    <!--private double gps_longitude;-->
+    <EditText
+        android:id="@+id/fuel_event_gps_longitude_edittext"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toRightOf="@+id/fuel_event_gps_latitude_edittext"
+        android:layout_alignTop="@+id/fuel_event_gps_latitude_edittext"
+        android:layout_alignBaseline="@+id/fuel_event_gps_latitude_edittext"
+        android:inputType="numberDecimal"
+        android:hint="@string/fuel_gps_longitude_hint" />
+
+</RelativeLayout>
