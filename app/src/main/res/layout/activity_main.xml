@@ -10,6 +10,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="@string/add_vehicle_hint"
+        android:drawableTop="@drawable/car_trans_130x50"
+        android:layout_centerHorizontal="true"
         android:onClick="onAddVehicle"/>
 
     <Button
@@ -18,8 +20,9 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_main_add_vehicle_button"
         android:text="@string/add_fuel_hint"
+        android:layout_centerHorizontal="true"
         android:onClick="onAddFuel"
-        android:drawableTop="@drawable/gas_pump_clip_art_70x147"/>
+        android:drawableTop="@drawable/gas_pump_clip_art_trans_70x147"/>
 
     <Button
         android:id="@+id/activity_main_add_service_button"
@@ -27,6 +30,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_main_add_fuel_button"
         android:text="@string/add_service_hint"
+        android:layout_centerHorizontal="true"
+        android:drawableTop="@drawable/toolbox_trans_100x79"
         android:onClick="onAddService"/>
 
 </RelativeLayout>

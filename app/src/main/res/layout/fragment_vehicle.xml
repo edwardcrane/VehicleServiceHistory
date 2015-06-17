@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <!-- TODO: CONVERT THIS TO A DROP DOWN WITH A FEW SELECTIONS (CAR, MOTORCYCLE, TRUCK, ?)-->
+    <!-- TODO: CONVERT THIS TO A DROP DOWN WITH A FEW SELECTIONS (car_300x300, MOTORCYCLE, TRUCK, ?)-->
     <Spinner
         android:id="@+id/vehicle_type_edittext"
         android:layout_width="wrap_content"
