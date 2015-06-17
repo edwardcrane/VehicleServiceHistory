@@ -18,7 +18,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/activity_main_add_vehicle_button"
         android:text="@string/add_fuel_hint"
-        android:onClick="onAddFuel"/>
+        android:onClick="onAddFuel"
+        android:drawableTop="@drawable/gas_pump_clip_art_70x147"/>
 
     <Button
         android:id="@+id/activity_main_add_service_button"

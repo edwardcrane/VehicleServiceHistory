@@ -30,7 +30,7 @@ public class FuelEventFragment extends Fragment {
         // If a FuelEvent was sent by caller, then populate the fields.
         if(tmpFuelEvent != null) {
             fuelEvent = tmpFuelEvent;
-            updateUIFromEvent();
+            updateUIFromEvent(v);
             // populate fields with data from FuelEvent
         } else {
             fuelEvent = new FuelEvent();
@@ -47,9 +47,7 @@ public class FuelEventFragment extends Fragment {
         return fuelEvent;
     }
 
-    private void updateUIFromEvent() {
-        View v = getView();
-
+    private void updateUIFromEvent(View v) {
         ((EditText)v.findViewById(R.id.fuel_event_timestamp)).setText(fuelEvent.getTimestamp() + "");
 
         ((EditText)v.findViewById(R.id.fuel_event_distance)).setText(fuelEvent.getDistance() + "");

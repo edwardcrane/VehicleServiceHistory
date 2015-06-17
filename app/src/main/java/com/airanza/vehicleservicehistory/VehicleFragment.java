@@ -30,7 +30,7 @@ public class VehicleFragment extends Fragment {
 
         if(tmpVehicle != null) {
             vehicle = tmpVehicle;
-            updateUIFromVehicle();
+            updateUIFromVehicle(v);
         } else {
             vehicle = new Vehicle();
         }
@@ -43,9 +43,7 @@ public class VehicleFragment extends Fragment {
         return vehicle;
     }
 
-    private void updateUIFromVehicle() {
-        View v = getView();
-
+    private void updateUIFromVehicle(View v) {
         ((Spinner) v.findViewById(R.id.vehicle_type_edittext)).setSelection(Utils.findIndexOf(vehicle.getType(), getResources(), R.array.vehicle_types));
 
         ((EditText) v.findViewById(R.id.vehicle_vin_edittext)).setText(vehicle.getVin());
