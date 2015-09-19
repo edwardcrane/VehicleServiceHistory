@@ -31,28 +31,30 @@ public class VehicleServiceHistoryDataSource {
 
     private String[] allServiceHistoryColumns = {
             VehicleServiceHistoryDBHelper.COLUMN_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_MILEAGE,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_COST,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_TIMESTAMP,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DESCRIPTION,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_COST,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID
     };
 
     private String[] allFuelEventColumns = {
             VehicleServiceHistoryDBHelper.COLUMN_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_TIMESTAMP,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_MILEAGE,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_NOTES,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE,
-            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VEHICLE_ID,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_TIMESTAMP,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_DISTANCE,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_CURRENCY,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_NOTES,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE,
+            VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE
     };
 
     private String[] allCurrencyColumns = {
@@ -85,14 +87,14 @@ public class VehicleServiceHistoryDataSource {
         // Create a new map of values, where column names are the keys:
         ContentValues values = new ContentValues();
         values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_TYPE, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_VIN, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_PLATE, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NICKNAME, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_YEAR, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_MAKE, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_MODEL, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_COLOR, type);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NOTES, type);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_VIN, vin);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_PLATE, plate);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NICKNAME, nickname);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_YEAR, year);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_MAKE, make);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_MODEL, model);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_COLOR, color);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NOTES, notes);
 
         long newRowId = database.insert(
                 VehicleServiceHistoryDBHelper.VEHICLE_TABLE_NAME,
@@ -206,16 +208,17 @@ public class VehicleServiceHistoryDataSource {
      *
      */
 
-    public ServiceEvent createServiceHistory(long vehicle_id, long timestamp, long mileage, String description, float cost, long currency_id) {
+    public ServiceEvent createServiceHistory(long vehicle_id, long timestamp, long distance, String distance_unit, String description, float cost, long currency_id) {
         // Create a new map of values, where column names are the keys:
         ContentValues values = new ContentValues();
 
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID, vehicle_id);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP, timestamp);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_MILEAGE, mileage);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION, description);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_COST, cost);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID, currency_id);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID, vehicle_id);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_TIMESTAMP, timestamp);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE, distance);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DISTANCE_UNIT, distance_unit);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DESCRIPTION, description);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_COST, cost);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID, currency_id);
 
         long newRowId = database.insert(
                 VehicleServiceHistoryDBHelper.SERVICE_HISTORY_TABLE_NAME,
@@ -236,42 +239,44 @@ public class VehicleServiceHistoryDataSource {
     }
 
     public ServiceEvent cursorToServiceHistory(Cursor cursor) {
-        ServiceEvent history = new ServiceEvent();
-        history.setID(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_ID)));
-        history.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID)));
-        history.setTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP)));
-        history.setMileage(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_MILEAGE)));
-        history.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION)));
-        history.setCost(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_COST)));
-        history.setCurrency_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID)));
+        ServiceEvent serviceEvent = new ServiceEvent();
+        serviceEvent.setID(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_ID)));
+        serviceEvent.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID)));
+        serviceEvent.setTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_TIMESTAMP)));
+        serviceEvent.setDistance(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE)));
+        serviceEvent.setDistanceUnit(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DISTANCE_UNIT)));
+        serviceEvent.setDescription(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DESCRIPTION)));
+        serviceEvent.setCost(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_COST)));
+        serviceEvent.setCurrency_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID)));
 
-        return history;
+        return serviceEvent;
     }
 
-    public void update(ServiceEvent history) {
-        long id = history.getID();
+    public void update(ServiceEvent serviceEvent) {
+        long id = serviceEvent.getID();
 
         String filterString = "_id=" + id;
         ContentValues args = new ContentValues();
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID, history.getVehicle_id());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP, history.getTimestamp());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_MILEAGE, history.getMileage());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION, history.getDescription());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_COST, history.getCost());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID, history.getCurrency_id());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID, serviceEvent.getVehicle_id());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_TIMESTAMP, serviceEvent.getTimestamp());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE, serviceEvent.getDistance());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT, serviceEvent.getDistanceUnit());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DESCRIPTION, serviceEvent.getDescription());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_COST, serviceEvent.getCost());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID, serviceEvent.getCurrency_id());
 
         database.update(VehicleServiceHistoryDBHelper.SERVICE_HISTORY_TABLE_NAME, args, filterString, null);
 
         requestBackup();
 
-        Log.w(this.getClass().getName(), "Updated: " + history.getDescription());
+        Log.w(this.getClass().getName(), "Updated: " + serviceEvent.getDescription());
     }
 
-    public void deleteServiceHistory(ServiceEvent history) {
-        long id = history.getID();
+    public void deleteServiceHistory(ServiceEvent serviceEvent) {
+        long id = serviceEvent.getID();
         int i = database.delete(VehicleServiceHistoryDBHelper.SERVICE_HISTORY_TABLE_NAME, VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + id, null);
         if (i != 1) {
-            Log.w(this.getClass().getName(), "Deleting [" + history + "] failed.  Delete returned [" + i + "] rows.");
+            Log.w(this.getClass().getName(), "Deleting [" + serviceEvent + "] failed.  Delete returned [" + i + "] rows.");
         } else {
             requestBackup();
         }
@@ -281,9 +286,9 @@ public class VehicleServiceHistoryDataSource {
         List<ServiceEvent> histories = new ArrayList<ServiceEvent>();
 
         String[] projection = allServiceHistoryColumns;
-        String whereClause = VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION + " LIKE \'%" + findString+ "%\'";
+        String whereClause = VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DESCRIPTION + " LIKE \'%" + findString+ "%\'";
 
-        String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP + " COLLATE NOCASE ASC";
+        String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_TIMESTAMP + " COLLATE NOCASE ASC";
 
         Cursor cursor = database.query(
                 VehicleServiceHistoryDBHelper.SERVICE_HISTORY_TABLE_NAME,    // the table to query
@@ -297,8 +302,8 @@ public class VehicleServiceHistoryDataSource {
 
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            ServiceEvent history = this.cursorToServiceHistory(cursor);
-            histories.add(history);
+            ServiceEvent serviceEvent = this.cursorToServiceHistory(cursor);
+            histories.add(serviceEvent);
             cursor.moveToNext();
         }
         return (histories);
@@ -306,62 +311,48 @@ public class VehicleServiceHistoryDataSource {
 
 
     public List<ServiceEvent> getAllServiceHistories() {
-        List<ServiceEvent> histories = new ArrayList<ServiceEvent>();
+        List<ServiceEvent> serviceEvents = new ArrayList<ServiceEvent>();
 
         Cursor cursor = database.query(VehicleServiceHistoryDBHelper.SERVICE_HISTORY_TABLE_NAME, allServiceHistoryColumns, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
-            ServiceEvent history = cursorToServiceHistory(cursor);
-            histories.add(history);
+            ServiceEvent serviceEvent = cursorToServiceHistory(cursor);
+            serviceEvents.add(serviceEvent);
             cursor.moveToNext();
         }
         cursor.close();
-        return histories;
+        return serviceEvents;
     }
 
     /*
      *  FuelEvent objects
      *
      */
-
-    //***
-    private long vehicle_id;
-    private long timestamp;
-    private int mileage;
-    private float volume;
-    private long volume_unit;
-    private int octane;
-    private long octane_method_id;
-    private float price_per_unit;
-    private long currency_id;
-    private String notes;
-    private double gps_latitude;
-    private double gps_longitude;
-    //***
-    public FuelEvent createFuelHistory(long vehicle_id, long timestamp, long mileage, float volume, long volume_unit, int octane, long octane_method_id, float price_per_unit, long currency_id,
-                                            String notes, long gps_latitude, long gps_longitude) {
+    public FuelEvent createFuelEvent(long vehicle_id, long timestamp, long distance, String distanceUnit, float volume, long volume_unit, int octane, long octane_method_id, float price_per_unit, long currency_id,
+                                     String notes, long gps_latitude, long gps_longitude) {
         // Create a new map of values, where column names are the keys:
         ContentValues values = new ContentValues();
 
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID, vehicle_id);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_TIMESTAMP, timestamp);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_MILEAGE, mileage);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME, volume);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID, volume_unit);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE, octane);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD, octane_method_id);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT, price_per_unit);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID, currency_id);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_NOTES, notes);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE, gps_latitude);
-        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE, gps_longitude);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VEHICLE_ID, vehicle_id);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_TIMESTAMP, timestamp);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_DISTANCE, distance);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT, distanceUnit);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME, volume);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT, volume_unit);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE, octane);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD, octane_method_id);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT, price_per_unit);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_CURRENCY, currency_id);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_NOTES, notes);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE, gps_latitude);
+        values.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE, gps_longitude);
 
         long newRowId = database.insert(
-                VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME,
+                VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME,
                 null,
                 values);
 
-        Cursor cursor = database.query(VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME,
+        Cursor cursor = database.query(VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME,
                 allFuelEventColumns, VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + newRowId,
                 null,
                 null,
@@ -375,22 +366,23 @@ public class VehicleServiceHistoryDataSource {
     }
 
     public FuelEvent cursorToFuelEvent(Cursor cursor) {
-        FuelEvent history = new FuelEvent();
-        history.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_ID)));
-        history.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID)));
-        history.setTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_TIMESTAMP)));
-        history.setDistance(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_MILEAGE)));
-        history.setVolume(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME)));
-        history.setVolume_unit(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID)));
-        history.setOctane(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE)));
-        history.setOctane_method(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD)));
-        history.setPrice_per_unit(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT)));
-        history.setCurrency(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID)));
-        history.setNotes(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_NOTES)));
-        history.setGps_latitude(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE)));
-        history.setGps_longitude(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE)));
+        FuelEvent fuelEvent = new FuelEvent();
+        fuelEvent.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_ID)));
+        fuelEvent.setVehicle_id(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VEHICLE_ID)));
+        fuelEvent.setTimestamp(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_TIMESTAMP)));
+        fuelEvent.setDistance(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_DISTANCE)));
+        fuelEvent.setDistanceUnit(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_HISTORY_DISTANCE_UNIT)));
+        fuelEvent.setVolume(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME)));
+        fuelEvent.setVolume_unit(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT)));
+        fuelEvent.setOctane(cursor.getInt(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE)));
+        fuelEvent.setOctane_method(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD)));
+        fuelEvent.setPrice_per_unit(cursor.getFloat(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT)));
+        fuelEvent.setCurrency(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_CURRENCY)));
+        fuelEvent.setNotes(cursor.getString(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_NOTES)));
+        fuelEvent.setGps_latitude(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE)));
+        fuelEvent.setGps_longitude(cursor.getLong(cursor.getColumnIndexOrThrow(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE)));
 
-        return history;
+        return fuelEvent;
     }
 
     // TODO:  START HERE!!!
@@ -399,32 +391,33 @@ public class VehicleServiceHistoryDataSource {
 
         String filterString = "_id=" + id;
         ContentValues args = new ContentValues();
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID, fuelEvent.getVehicle_id());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_TIMESTAMP, fuelEvent.getTimestamp());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_MILEAGE, fuelEvent.getDistance());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME, fuelEvent.getVolume());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID, fuelEvent.getVolume_unit());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE, fuelEvent.getOctane());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD, fuelEvent.getOctane_method());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT, fuelEvent.getPrice_per_unit());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID, fuelEvent.getCurrency());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_NOTES, fuelEvent.getNotes());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE, fuelEvent.getGps_latitude());
-        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE, fuelEvent.getGps_longitude());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VEHICLE_ID, fuelEvent.getVehicle_id());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_TIMESTAMP, fuelEvent.getTimestamp());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_DISTANCE, fuelEvent.getDistance());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT, fuelEvent.getDistanceUnit());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME, fuelEvent.getVolume());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT, fuelEvent.getVolume_unit());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE, fuelEvent.getOctane());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD, fuelEvent.getOctane_method());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT, fuelEvent.getPrice_per_unit());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_CURRENCY, fuelEvent.getCurrency());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_NOTES, fuelEvent.getNotes());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE, fuelEvent.getGps_latitude());
+        args.put(VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE, fuelEvent.getGps_longitude());
 
 
-        database.update(VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME, args, filterString, null);
+        database.update(VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME, args, filterString, null);
 
         requestBackup();
 
         Log.w(this.getClass().getName(), "Updated: " + fuelEvent.getVolume() + " for " + fuelEvent.getPrice_per_unit() * fuelEvent.getVolume());
     }
 
-    public void deleteFuelHistory(FuelEvent history) {
-        long id = history.getID();
-        int i = database.delete(VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME, VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + id, null);
+    public void deleteFuelHistory(FuelEvent fuelEvent) {
+        long id = fuelEvent.getID();
+        int i = database.delete(VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME, VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + id, null);
         if (i != 1) {
-            Log.w(this.getClass().getName(), "Deleting [" + history + "] failed.  Delete returned [" + i + "] rows.");
+            Log.w(this.getClass().getName(), "Deleting [" + fuelEvent + "] failed.  Delete returned [" + i + "] rows.");
         } else {
             requestBackup();
         }
@@ -434,12 +427,12 @@ public class VehicleServiceHistoryDataSource {
         List<FuelEvent> events = new ArrayList<FuelEvent>();
 
         String[] projection = allFuelEventColumns;
-        String whereClause = VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_NOTES + " LIKE \'%" + findString+ "%\'";
+        String whereClause = VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_NOTES + " LIKE \'%" + findString+ "%\'";
 
-        String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_HISTORY_TIMESTAMP + " COLLATE NOCASE ASC";
+        String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_NAME_FUEL_EVENT_TIMESTAMP + " COLLATE NOCASE ASC";
 
         Cursor cursor = database.query(
-                VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME,    // the table to query
+                VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME,    // the table to query
                 projection,                                 // the columns to return
                 whereClause,            //selection,        // the values for the WHERE clause
                 null,              //selectionArgs,    // the values for the WHERE clause
@@ -461,7 +454,7 @@ public class VehicleServiceHistoryDataSource {
     public List<FuelEvent> getAllFuelEvents() {
         List<FuelEvent> fuelEvents = new ArrayList<FuelEvent>();
 
-        Cursor cursor = database.query(VehicleServiceHistoryDBHelper.FUEL_HISTORY_TABLE_NAME, allFuelEventColumns, null, null, null, null, null);
+        Cursor cursor = database.query(VehicleServiceHistoryDBHelper.FUEL_EVENT_TABLE_NAME, allFuelEventColumns, null, null, null, null, null);
         cursor.moveToFirst();
         while (!cursor.isAfterLast()) {
             FuelEvent fuelEvent = cursorToFuelEvent(cursor);

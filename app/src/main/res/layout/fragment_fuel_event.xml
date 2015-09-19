@@ -3,11 +3,11 @@
     android:layout_width="match_parent" android:layout_height="match_parent">
 
     <!--private long vehicle_id;-->
-    <EditText
+    <Spinner
         android:id="@+id/fuel_event_vehicle_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:hint="@string/fuel_vehicle_id_hint" />
+        android:prompt="@string/fuel_vehicle_id_hint" />
 
     <!--private long timestamp;-->
     <EditText

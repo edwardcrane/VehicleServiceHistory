@@ -1,6 +1,7 @@
 package com.airanza.vehicleservicehistory;
 
 import android.app.Activity;
+import android.app.DialogFragment;
 import android.app.FragmentManager;
 import android.content.Intent;
 import android.net.Uri;
@@ -8,6 +9,9 @@ import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.Toast;
 
 
 public class FuelEventActivity extends ActionBarActivity {
@@ -21,6 +25,17 @@ public class FuelEventActivity extends ActionBarActivity {
 
         FragmentManager fm = getFragmentManager();
         fuelEventFragment = (FuelEventFragment) fm.findFragmentById(R.id.fuel_event_fragment);
+
+        EditText tm = (EditText)findViewById(R.id.fuel_event_timestamp);
+        tm.setOnClickListener(new View.OnClickListener() {
+
+            public void onClick(View v) {
+                DatePickerFragment newFragment = new DatePickerFragment();
+                newFragment.setTimeStampEditText((EditText)v.findViewById(R.id.fuel_event_timestamp));
+                newFragment.show(getFragmentManager(), "Fuel Date");
+            }
+        });
+
     }
 
     @Override

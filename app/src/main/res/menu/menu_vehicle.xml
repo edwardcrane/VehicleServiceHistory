@@ -4,8 +4,17 @@
     tools:context="com.airanza.vehicleservicehistory.VehicleActivity">
     <item android:id="@+id/action_settings" android:title="@string/action_settings"
         android:orderInCategory="100" app:showAsAction="never" />
-    <item android:id="@+id/action_vehicle_submit" android:title="@string/vehicle_activity_submit"
+    <item android:id="@+id/action_vehicle_submit"
+        android:title="@string/vehicle_activity_submit"
         android:orderInCategory="200" app:showAsAction="always|withText"
         android:icon="@android:drawable/ic_menu_save"
         />
+    <item android:id="@+id/action_vehicle_cancel"
+        android:icon="@android:drawable/ic_menu_close_clear_cancel"
+        android:title="@string/vehicle_activity_cancel"
+        app:showAsAction="always" />
+    <item android:id="@+id/action_vehicle_delete"
+        android:icon="@android:drawable/ic_menu_delete"
+        android:title="@string/vehicle_activity_delete"
+        app:showAsAction="always" />
 </menu>

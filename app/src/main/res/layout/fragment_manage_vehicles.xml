@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.airanza.vehicleservicehistory.ManageVehiclesFragment">
+
+    <LinearLayout
+        android:id="@+id/search_group"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="top"
+        android:orientation="horizontal">
+        <EditText
+            android:id="@+id/findString"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/findString"
+            android:singleLine="true"
+            android:textStyle="bold|italic"
+            android:drawableLeft="@android:drawable/ic_menu_search" />
+    </LinearLayout>
+
+    <!--<RelativeLayout android:id="@+id/top_ad_layout"-->
+        <!--android:orientation="vertical"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:layout_below="@id/search_group"-->
+        <!--android:background="@layout/banner_ad_default_logo">-->
+
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/main_top_adview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--ads:adSize="BANNER"-->
+            <!--ads:adUnitId="@string/main_activity_top_banner_ad_unit_id" />-->
+    <!--</RelativeLayout>-->
+
+    <ListView
+        android:layout_width="match_parent"
+        android:id="@+id/listMain"
+        android:layout_height="wrap_content"
+        android:text="@string/list_default_value"
+        android:scrollbars="vertical"
+        android:clickable="true"
+        android:footerDividersEnabled="false"
+        android:headerDividersEnabled="false"
+        android:layout_below="@id/search_group"
+        >
+        <!--android:layout_below="@id/top_ad_layout"-->
+        <!--android:layout_above="@+id/bottom_ad_layout"-->
+    </ListView>
+
+
+
+    <!--<RelativeLayout android:id="@+id/bottom_ad_layout"-->
+        <!--android:orientation="horizontal"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_width="match_parent"-->
+        <!--android:background="@layout/banner_ad_default_logo"-->
+        <!--android:layout_alignParentBottom="true"-->
+        <!-->-->
+        <!--<com.google.android.gms.ads.AdView-->
+            <!--android:id="@+id/main_bottom_adview"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:layout_centerHorizontal="true"-->
+            <!--ads:adSize="BANNER"-->
+            <!--ads:adUnitId="@string/main_activity_bottom_banner_ad_unit_id" />-->
+    <!--</RelativeLayout>-->
+
+</RelativeLayout>

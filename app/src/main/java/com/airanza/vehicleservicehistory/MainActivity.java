@@ -46,6 +46,14 @@ public class MainActivity extends ActionBarActivity {
         startActivityForResult(intent, VehicleFragment.VEHICLE_ACTIVITY_REQUEST);
     }
 
+    public void onManageVehicles(View v) {
+        // create Intent
+        Intent intent = new Intent(this, ManageVehiclesActivity.class);
+
+        // start the activity (user can cxl with back key).
+        startActivityForResult(intent, ManageVehiclesFragment.MANAGE_VEHICLES_ACTIVITY_REQUEST);
+    }
+
     public void onAddFuel(View v) {
         // create Intent
         Intent intent = new Intent(this, FuelEventActivity.class);

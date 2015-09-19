@@ -4,7 +4,8 @@ public class ServiceEvent {
     private long id_;
     private long vehicle_id;
     private long timestamp;
-    private long mileage;
+    private long distance;
+    private String distanceUnit;
     private String description;
     private float cost;
     private long currency_id;
@@ -33,12 +34,20 @@ public class ServiceEvent {
         this.timestamp = timestamp;
     }
 
-    public long getMileage() {
-        return mileage;
+    public long getDistance() {
+        return distance;
     }
 
-    public void setMileage(long mileage) {
-        this.mileage = mileage;
+    public void setDistance(long distance) {
+        this.distance = distance;
+    }
+
+    public void setDistanceUnit(String distanceUnit) {
+        this.distanceUnit = distanceUnit;
+    }
+
+    public String getDistanceUnit() {
+        return(distanceUnit);
     }
 
     public String getDescription() {

@@ -97,4 +97,8 @@ public class Vehicle implements Serializable{
     public String getNotes() {
         return notes;
     }
+
+    public String toString() {
+        return nickname + " " + year + " " + make + " " + model + " " + color + " " + vin + " " + type + " " + notes;
+    }
 }

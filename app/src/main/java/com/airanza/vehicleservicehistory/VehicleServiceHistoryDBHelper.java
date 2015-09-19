@@ -19,7 +19,7 @@ public class VehicleServiceHistoryDBHelper extends SQLiteOpenHelper {
 
     public static final String COLUMN_ID = "_id";
 
-    public static final String VEHICLE_TABLE_NAME = "fuelEvent";
+    public static final String VEHICLE_TABLE_NAME = "vehicle";
     public static final String COLUMN_NAME_VEHICLE_TYPE = "type";
     public static final String COLUMN_NAME_VEHICLE_VIN = "vin";
     public static final String COLUMN_NAME_VEHICLE_PLATE = "plate";
@@ -41,57 +41,62 @@ public class VehicleServiceHistoryDBHelper extends SQLiteOpenHelper {
                     COLUMN_NAME_VEHICLE_MAKE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_VEHICLE_MODEL + TEXT_TYPE + COMMA_SEP +
                     COLUMN_NAME_VEHICLE_COLOR + TEXT_TYPE + COMMA_SEP +
-                    COLUMN_NAME_VEHICLE_NOTES + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_VEHICLE_NOTES + TEXT_TYPE +
                     " )";
 
     public static final String SERVICE_HISTORY_TABLE_NAME = "service_history";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID = "vehicle_id";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP = "timestamp";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_MILEAGE = "mileage";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION = "description";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_COST = "cost";
-    public static final String COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID = "currency_id";
+    public static final String COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID = "vehicle_id";
+    public static final String COLUMN_NAME_SERVICE_EVENT_TIMESTAMP = "timestamp";
+    public static final String COLUMN_NAME_SERVICE_EVENT_DISTANCE = "distance";
+    public static final String COLUMN_NAME_SERVICE_HISTORY_DISTANCE_UNIT = "distance_unit";
+    public static final String COLUMN_NAME_SERVICE_EVENT_DESCRIPTION = "description";
+    public static final String COLUMN_NAME_SERVICE_EVENT_COST = "cost";
+    public static final String COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID = "currency_id";
 
     public static final String SQL_CREATE_SERVICE_HISTORY =
             "CREATE TABLE " + SERVICE_HISTORY_TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_VEHICLE_ID + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_TIMESTAMP + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_MILEAGE + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_COST + " REAL" + COMMA_SEP +
-                    COLUMN_NAME_SERVICE_HISTORY_CURRENCY_ID + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_VEHICLE_ID + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_TIMESTAMP + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_DISTANCE + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_HISTORY_DISTANCE_UNIT + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_COST + " REAL" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_CURRENCY_ID + TEXT_TYPE +
                     " )";
 
-    public static final String FUEL_HISTORY_TABLE_NAME = "fuel_history";
-    public static final String COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID = "vehicle_id";
-    public static final String COLUMN_NAME_FUEL_HISTORY_TIMESTAMP = "timestamp";
-    public static final String COLUMN_NAME_FUEL_HISTORY_MILEAGE = "mileage";
-    public static final String COLUMN_NAME_FUEL_HISTORY_VOLUME = "volume";
-    public static final String COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID = "volume_unit";
-    public static final String COLUMN_NAME_FUEL_HISTORY_OCTANE = "octane";
-    public static final String COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD = "octane_method_id";
-    public static final String COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT = "price_per_unit";
-    public static final String COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID = "currency_id";
-    public static final String COLUMN_NAME_FUEL_HISTORY_NOTES = "notes";
-    public static final String COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE = "gps_latitude";
-    public static final String COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE = "gps_longitude";
+    public static final String FUEL_EVENT_TABLE_NAME = "fuel_event";
+
+    public static final String COLUMN_NAME_FUEL_EVENT_VEHICLE_ID = "vehicle_id";
+    public static final String COLUMN_NAME_FUEL_EVENT_TIMESTAMP = "timestamp";
+    public static final String COLUMN_NAME_FUEL_EVENT_DISTANCE = "distance";
+    public static final String COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT = "distance_unit";
+    public static final String COLUMN_NAME_FUEL_EVENT_VOLUME = "volume";
+    public static final String COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT = "volume_unit";
+    public static final String COLUMN_NAME_FUEL_EVENT_OCTANE = "octane";
+    public static final String COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD = "octane_method_id";
+    public static final String COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT = "price_per_unit";
+    public static final String COLUMN_NAME_FUEL_EVENT_CURRENCY = "currency_id";
+    public static final String COLUMN_NAME_FUEL_EVENT_NOTES = "notes";
+    public static final String COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE = "gps_latitude";
+    public static final String COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE = "gps_longitude";
 
     public static final String SQL_CREATE_FUEL_HISTORY =
-            "CREATE TABLE " + FUEL_HISTORY_TABLE_NAME + " (" +
+            "CREATE TABLE " + FUEL_EVENT_TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_VEHICLE_ID + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_TIMESTAMP + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_MILEAGE + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_VOLUME + " REAL" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_VOLUME_UNIT_ID + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_OCTANE + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_OCTANE_METHOD + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_PRICE_PER_UNIT + " REAL" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_CURRENCY_ID + " INTEGER" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_NOTES + TEXT_TYPE + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_GPS_LATITUDE + " REAL" + COMMA_SEP +
-                    COLUMN_NAME_FUEL_HISTORY_GPS_LONGITUDE + "REAL" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_VEHICLE_ID + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_TIMESTAMP + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_DISTANCE + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_SERVICE_EVENT_DISTANCE_UNIT + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_VOLUME + " REAL" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_VOLUME_UNIT + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_OCTANE + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_OCTANE_METHOD + " INTEGER" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_PRICE_PER_UNIT + " REAL" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_CURRENCY + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_NOTES + TEXT_TYPE + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_GPS_LATITUDE + " REAL" + COMMA_SEP +
+                    COLUMN_NAME_FUEL_EVENT_GPS_LONGITUDE + "REAL" +
                     " )";
 
     public static final String VOLUME_UNIT_TABLE_NAME = "volume_unit";
@@ -101,16 +106,15 @@ public class VehicleServiceHistoryDBHelper extends SQLiteOpenHelper {
     public static final String CURRENCY_TABLE_NAME = "currency";
     public static final String COLUMN_ID_CURRENCY_CODE = "code";
     public static final String COLUMN_ID_CURRENCY_DESCRIPTION = "description";
-    public static final String COLUMN_ID_CURRENCY_CONVERSION_RATE = "convversion_rate";
+    public static final String COLUMN_ID_CURRENCY_CONVERSION_RATE = "conversion_rate";
 
     public static final String SQL_CREATE_CURRENCY =
             "CREATE TABLE " + CURRENCY_TABLE_NAME + " (" +
                     COLUMN_ID + " INTEGER PRIMARY KEY AUTOINCREMENT" + COMMA_SEP +
                     COLUMN_ID_CURRENCY_CODE + TEXT_TYPE + COMMA_SEP +
                     COLUMN_ID_CURRENCY_DESCRIPTION + TEXT_TYPE + COMMA_SEP +
-                    COLUMN_ID_CURRENCY_CONVERSION_RATE + " REAL" + COMMA_SEP +
+                    COLUMN_ID_CURRENCY_CONVERSION_RATE + " REAL" +
                     " )";
-
 
     public VehicleServiceHistoryDBHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);

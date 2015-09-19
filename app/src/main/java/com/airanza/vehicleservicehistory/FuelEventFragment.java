@@ -7,11 +7,18 @@ import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.Spinner;
+
+import java.sql.SQLException;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class FuelEventFragment extends Fragment {
     public static int FUEL_EVENT_ACTIVITY_REQUEST = 100;
@@ -39,6 +46,27 @@ public class FuelEventFragment extends Fragment {
 
         dataSource = new VehicleServiceHistoryDataSource(getActivity().getApplicationContext());
 
+        try {
+            dataSource.open();
+        }catch (SQLException e) {
+            Log.e(e.getClass().getName(), e.getMessage(), e);
+        }
+
+//        String [] allVehicles = (String [])(dataSource.getAllVehicles().toArray());
+//
+        Spinner vehicleSpinner = (Spinner)v.findViewById(R.id.fuel_event_vehicle_id);
+//        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, allVehicles);
+        ArrayAdapter<Vehicle> spinnerArrayAdapter = new ArrayAdapter<Vehicle>(v.getContext(), android.R.layout.simple_spinner_item, dataSource.getAllVehicles());
+        spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        vehicleSpinner.setAdapter(spinnerArrayAdapter);
+
+        EditText time = (EditText)v.findViewById(R.id.fuel_event_timestamp);
+//        time.setOnClickListener(new View.OnClickListener() {
+//            public void onClick(View v) {
+//                DatePickerFragment dpf = new DatePickerFragment();
+//                dpf.show(getFragmentManager(), "Fuel Date");
+//            }
+//        });
         return v;
     }
 
@@ -73,7 +101,17 @@ public class FuelEventFragment extends Fragment {
     private void updateFuelEventFromUI() {
         View v = getView();
 
-        fuelEvent.setTimestamp(Integer.parseInt(((EditText) v.findViewById(R.id.fuel_event_timestamp)).getText().toString()));
+        String inDate = ((EditText)v.findViewById(R.id.fuel_event_timestamp)).getText().toString();
+
+        try {
+            SimpleDateFormat formatter = new SimpleDateFormat("MM/dd/yyyy");
+            Date d = formatter.parse(inDate);
+            fuelEvent.setTimestamp(d.getTime());
+        } catch(ParseException e) {
+            Log.e(getClass().getName(), e.getMessage());
+            // TODO:  Display a message to the user that their date is screwed up.
+            fuelEvent.setTimestamp(0);
+        }
 
         fuelEvent.setDistance(Long.parseLong(((EditText) v.findViewById(R.id.fuel_event_distance)).getText().toString()));
         fuelEvent.setDistanceUnit(((Spinner) v.findViewById(R.id.fuel_event_distance_unit)).getSelectedItem().toString());
@@ -89,7 +127,18 @@ public class FuelEventFragment extends Fragment {
 
         fuelEvent.setNotes(((EditText) v.findViewById(R.id.fuel_event_notes_edittext)).getText().toString());
 
-        fuelEvent.setGps_latitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_latitude_edittext)).getText().toString()));
-        fuelEvent.setGps_longitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_longitude_edittext)).getText().toString()));
+        try {
+            fuelEvent.setGps_latitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_latitude_edittext)).getText().toString()));
+        } catch(NumberFormatException e) {
+            Log.w(getClass().getName(), e.getMessage());
+            fuelEvent.setGps_latitude(0);
+        }
+
+        try {
+            fuelEvent.setGps_longitude(Double.parseDouble(((EditText) v.findViewById(R.id.fuel_event_gps_longitude_edittext)).getText().toString()));
+        } catch(NumberFormatException e) {
+            Log.w(getClass().getName(), e.getMessage());
+            fuelEvent.setGps_longitude(0);
+        }
     }
 }
