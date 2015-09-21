@@ -1,6 +1,7 @@
 package com.airanza.vehicleservicehistory;
 
 import android.app.Activity;
+import android.app.DatePickerDialog;
 import android.app.Fragment;
 import android.content.Intent;
 import android.location.Location;
@@ -12,20 +13,27 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
+import java.util.Locale;
 
-public class FuelEventFragment extends Fragment {
+public class FuelEventFragment extends Fragment implements View.OnClickListener {
     public static int FUEL_EVENT_ACTIVITY_REQUEST = 100;
     public static String FUEL_EVENT_INTENT_DATA = "fuel_event_data";
 
     VehicleServiceHistoryDataSource dataSource = null;
     FuelEvent fuelEvent = null;
+
+    SimpleDateFormat dateFormat = new SimpleDateFormat("MM/dd/yyyy", Locale.US);
+    private DatePickerDialog timestampDatePickerDialog;
+    private EditText timestampEditText = null;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -37,12 +45,18 @@ public class FuelEventFragment extends Fragment {
         // If a FuelEvent was sent by caller, then populate the fields.
         if(tmpFuelEvent != null) {
             fuelEvent = tmpFuelEvent;
-            updateUIFromEvent(v);
             // populate fields with data from FuelEvent
         } else {
             fuelEvent = new FuelEvent();
-            fuelEvent.setTimestamp(System.currentTimeMillis());
+//            fuelEvent.setTimestamp(System.currentTimeMillis());
+            fuelEvent.setTimestamp(new Date().getTime());
         }
+
+        timestampEditText = (EditText)v.findViewById(R.id.fuel_event_timestamp);
+
+        setDateTimeField();
+
+        updateUIFromEvent(v);
 
         dataSource = new VehicleServiceHistoryDataSource(getActivity().getApplicationContext());
 
@@ -52,22 +66,34 @@ public class FuelEventFragment extends Fragment {
             Log.e(e.getClass().getName(), e.getMessage(), e);
         }
 
-//        String [] allVehicles = (String [])(dataSource.getAllVehicles().toArray());
-//
         Spinner vehicleSpinner = (Spinner)v.findViewById(R.id.fuel_event_vehicle_id);
-//        ArrayAdapter<String> spinnerArrayAdapter = new ArrayAdapter<String>(v.getContext(), android.R.layout.simple_spinner_item, allVehicles);
         ArrayAdapter<Vehicle> spinnerArrayAdapter = new ArrayAdapter<Vehicle>(v.getContext(), android.R.layout.simple_spinner_item, dataSource.getAllVehicles());
         spinnerArrayAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         vehicleSpinner.setAdapter(spinnerArrayAdapter);
 
-        EditText time = (EditText)v.findViewById(R.id.fuel_event_timestamp);
-//        time.setOnClickListener(new View.OnClickListener() {
-//            public void onClick(View v) {
-//                DatePickerFragment dpf = new DatePickerFragment();
-//                dpf.show(getFragmentManager(), "Fuel Date");
-//            }
-//        });
         return v;
+    }
+
+    private void setDateTimeField() {
+        timestampEditText.setOnClickListener(this);
+
+        Calendar newCalendar = Calendar.getInstance();
+        timestampDatePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+
+            public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth) {
+                Calendar newDate = Calendar.getInstance();
+                newDate.set(year, monthOfYear, dayOfMonth);
+                timestampEditText.setText(dateFormat.format(newDate.getTime()));
+            }
+        },newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH)
+        );
+    }
+
+    @Override
+    public void onClick(View view) {
+        if(view == timestampEditText) {
+            timestampDatePickerDialog.show();
+        }
     }
 
     public FuelEvent getFuelEvent() {
@@ -76,7 +102,7 @@ public class FuelEventFragment extends Fragment {
     }
 
     private void updateUIFromEvent(View v) {
-        ((EditText)v.findViewById(R.id.fuel_event_timestamp)).setText(fuelEvent.getTimestamp() + "");
+        ((EditText)v.findViewById(R.id.fuel_event_timestamp)).setText(dateFormat.format(new Date(fuelEvent.getTimestamp())));
 
         ((EditText)v.findViewById(R.id.fuel_event_distance)).setText(fuelEvent.getDistance() + "");
         ((Spinner)v.findViewById(R.id.fuel_event_distance_unit)).setSelection(Utils.findIndexOf(fuelEvent.getDistanceUnit(), getResources(), R.array.distance_units_array));

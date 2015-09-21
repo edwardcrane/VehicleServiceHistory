@@ -11,6 +11,7 @@ import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -52,6 +53,9 @@ public class ManageVehiclesFragment extends Fragment {
 
         nDefaultSearchTextColor = ((EditText) v.findViewById(R.id.findString)).getTextColors().getDefaultColor();
 
+        // hide keyboard unless explicitly required by user clicking:
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+
         try {
             vshDataSource = new VehicleServiceHistoryDataSource(getActivity());
             vshDataSource.open();
@@ -75,6 +79,7 @@ public class ManageVehiclesFragment extends Fragment {
                         Intent intent = new Intent(getActivity().getApplicationContext(), VehicleActivity.class);
                         intent.putExtra(VEHICLE_INTENT_DATA, vehicles.get(position));
                         startActivity(intent);
+
                         adapter.notifyDataSetChanged();
                     }
                 }

@@ -13,6 +13,9 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 public class FuelEventActivity extends ActionBarActivity {
 
@@ -25,16 +28,6 @@ public class FuelEventActivity extends ActionBarActivity {
 
         FragmentManager fm = getFragmentManager();
         fuelEventFragment = (FuelEventFragment) fm.findFragmentById(R.id.fuel_event_fragment);
-
-        EditText tm = (EditText)findViewById(R.id.fuel_event_timestamp);
-        tm.setOnClickListener(new View.OnClickListener() {
-
-            public void onClick(View v) {
-                DatePickerFragment newFragment = new DatePickerFragment();
-                newFragment.setTimeStampEditText((EditText)v.findViewById(R.id.fuel_event_timestamp));
-                newFragment.show(getFragmentManager(), "Fuel Date");
-            }
-        });
 
     }
 
