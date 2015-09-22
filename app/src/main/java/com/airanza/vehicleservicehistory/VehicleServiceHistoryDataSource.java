@@ -160,12 +160,40 @@ public class VehicleServiceHistoryDataSource {
         }
     }
 
+    public Vehicle findVehicle(long vehicle_id) {
+        String[] projection = allVehicleColumns;
+        String whereClause = VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + vehicle_id;
+        String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_ID + " COLLATE NOCASE ASC";
+
+        Cursor cursor = database.query(
+                VehicleServiceHistoryDBHelper.VEHICLE_TABLE_NAME,  // the table to query
+                projection,
+                whereClause,
+                null,
+                null,
+                null,
+                sortOrder
+        );
+
+        if(cursor.getCount() == 1) {    // should never be > 1, but if it is, return 1st.
+            cursor.moveToFirst();
+            return (this.cursorToVehicle(cursor));
+        } else if(cursor.getCount() > 1) {
+            Log.e(this.getClass().getName(), "Found > 1 with id: " + vehicle_id + " returning only the first.");
+            cursor.moveToFirst();
+            return (this.cursorToVehicle(cursor));
+        } else {
+            Log.e(this.getClass().getName(), "Found < 1 with id: " + vehicle_id + " returning null, as this is a major problem!");
+            return (null);
+        }
+    }
     public List<Vehicle> findVehicles(String findString) {
         List<Vehicle> vehicles = new ArrayList<Vehicle>();
 
         String[] projection = allVehicleColumns;
         String whereClause = VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NICKNAME + " LIKE \'%" + findString + "%\' OR "
-                + VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NOTES + " LIKE \'%" + findString + "%\'";
+                + VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NOTES + " LIKE \'%" + findString + "%\' OR "
+                + VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_VIN + " LIKE \'%" + findString + "%\'";
 
         String sortOrder = VehicleServiceHistoryDBHelper.COLUMN_NAME_VEHICLE_NICKNAME + " COLLATE NOCASE ASC";
 
@@ -187,7 +215,6 @@ public class VehicleServiceHistoryDataSource {
         }
         return (vehicles);
     }
-
 
     public List<Vehicle> getAllVehicles() {
         List<Vehicle> vehicles = new ArrayList<Vehicle>();

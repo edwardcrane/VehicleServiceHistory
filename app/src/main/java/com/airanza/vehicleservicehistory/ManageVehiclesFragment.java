@@ -32,7 +32,7 @@ import java.util.List;
 public class ManageVehiclesFragment extends Fragment {
 
     public static int MANAGE_VEHICLES_ACTIVITY_REQUEST = 101;
-    public static String VEHICLE_INTENT_DATA = "vehicle_data";
+    //public static String VEHICLE_INTENT_DATA = "vehicle_data";
 
     private VehicleServiceHistoryDataSource vshDataSource;
     private List<Vehicle> vehicles = null;
@@ -77,9 +77,8 @@ public class ManageVehiclesFragment extends Fragment {
                     @Override
                     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                         Intent intent = new Intent(getActivity().getApplicationContext(), VehicleActivity.class);
-                        intent.putExtra(VEHICLE_INTENT_DATA, vehicles.get(position));
+                        intent.putExtra(VehicleFragment.VEHICLE_INTENT_DATA, vehicles.get(position));
                         startActivity(intent);
-
                         adapter.notifyDataSetChanged();
                     }
                 }
@@ -147,6 +146,12 @@ public class ManageVehiclesFragment extends Fragment {
                 adapter.notifyDataSetChanged();
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        findResource(getView());
     }
 
     public void findResource(View view) {

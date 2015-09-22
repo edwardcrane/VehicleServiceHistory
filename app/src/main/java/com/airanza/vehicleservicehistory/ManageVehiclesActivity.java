@@ -39,7 +39,7 @@ public class ManageVehiclesActivity extends ActionBarActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if(id==R.id.action_add_vehicle) {
+        if (id == R.id.action_add_vehicle) {
             onAddVehicle();
         }
 
@@ -51,12 +51,20 @@ public class ManageVehiclesActivity extends ActionBarActivity {
         Intent intent = new Intent(this, VehicleActivity.class);
 
         // start the activity (user can cxl with back key).
-        startActivityForResult(intent, VehicleFragment.VEHICLE_ACTIVITY_REQUEST);
+//        startActivityForResult(intent, VehicleFragment.VEHICLE_ACTIVITY_REQUEST);
+        startActivity(intent);
     }
 
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        Log.i(getClass().getName(), "inside onActivityResult(" + requestCode + ", " + resultCode + ", " + data + ")");
-            adapter.notifyDataSetChanged();
-    }
-
+//    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+//        Log.i(getClass().getName(), "inside onActivityResult(" + requestCode + ", " + resultCode + ", " + data + ")");
+//        switch (requestCode) {
+//            case VehicleFragment.VEHICLE_ACTIVITY_REQUEST:
+//                if (resultCode == RESULT_OK) {
+//                    // get the Vehicle from the Intent.
+//                    Vehicle v = (Vehicle) data.getSerializableExtra(VehicleFragment.VEHICLE_INTENT_DATA);
+//                }
+//                break;
+//        }
+//        adapter.notifyDataSetChanged();
+//    }
 }

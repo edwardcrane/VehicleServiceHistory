@@ -48,7 +48,6 @@ public class FuelEventFragment extends Fragment implements View.OnClickListener 
             // populate fields with data from FuelEvent
         } else {
             fuelEvent = new FuelEvent();
-//            fuelEvent.setTimestamp(System.currentTimeMillis());
             fuelEvent.setTimestamp(new Date().getTime());
         }
 
