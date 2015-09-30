@@ -151,6 +151,10 @@ public class VehicleServiceHistoryDataSource {
     }
 
     public void deleteVehicle(Vehicle vehicle) {
+        if(vehicle == null) {
+            return;
+        }
+
         long id = vehicle.getID();
         int i = database.delete(VehicleServiceHistoryDBHelper.VEHICLE_TABLE_NAME, VehicleServiceHistoryDBHelper.COLUMN_ID + " = " + id, null);
         if (i != 1) {

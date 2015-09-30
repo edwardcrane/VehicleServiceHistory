@@ -89,6 +89,11 @@ public class ManageVehiclesFragment extends Fragment {
         return (v);
     }
 
+    @Override
+    public void onActivityCreated(Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+    }
+
 
 //    @Override
 //    public void onAttach(Activity activity) {
@@ -152,6 +157,19 @@ public class ManageVehiclesFragment extends Fragment {
     public void onResume() {
         super.onResume();
         findResource(getView());
+    }
+
+    /**
+     * onBackPressed() must be called from enclosing Activity.
+     */
+    public boolean onBackPressed() {
+        EditText et = (EditText)getView().findViewById(R.id.findString);
+        if(!et.getText().toString().isEmpty()) {
+            et.setText("");
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void findResource(View view) {

@@ -1,5 +1,6 @@
 package com.airanza.vehicleservicehistory;
 
+import android.app.FragmentManager;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.ActionBarActivity;
@@ -21,12 +22,18 @@ public class ManageVehiclesActivity extends ActionBarActivity {
     private ListView listView = null;
     private VehiclesArrayAdapter adapter = null;
 
+    private ManageVehiclesFragment manageVehiclesFragment = null;
+
     public final static String EXTRA_VEHICLE = "com.airanza.vehicleservicehistory.VEHICLE";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_manage_vehicles);
+
+        FragmentManager fm = getFragmentManager();
+        manageVehiclesFragment = (ManageVehiclesFragment)fm.findFragmentById((R.id.manage_vehicles_fragment));
+
     }
 
     @Override
@@ -53,6 +60,13 @@ public class ManageVehiclesActivity extends ActionBarActivity {
         // start the activity (user can cxl with back key).
 //        startActivityForResult(intent, VehicleFragment.VEHICLE_ACTIVITY_REQUEST);
         startActivity(intent);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(!manageVehiclesFragment.onBackPressed()) {
+            super.onBackPressed();
+        }
     }
 
 //    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
